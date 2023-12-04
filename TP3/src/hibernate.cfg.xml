@@ -10,7 +10,7 @@
         <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
         <!--  property name="connection.driver_class">com.mysql.jdbc.Driver</property -->
         <!-- property name="connection.url">jdbc:mysql://localhost:3306/demohibernate</property-->
-        <property name="connection.url">jdbc:mysql://localhost:3306/demohibernate00?serverTimezone=UTC</property>
+        <property name="connection.url">jdbc:mariadb://localhost:3306/commandes?serverTimezone=UTC</property>
         <property name="connection.username">root</property>
         <property name="connection.password"></property>
         
@@ -35,7 +35,7 @@
         <!-- Quelques autres options: validate, create (effacer et recréer le schéma à chaque exécution), update (mettre à jour le schéma si nécessaire) -->
         <property name="hbm2ddl.auto">create</property>
  
- 		<mapping class="demo.Client"/>
+ 		<mapping class="TP3.Client"/>
 		
     </session-factory>
 </hibernate-configuration>
