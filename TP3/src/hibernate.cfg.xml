@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
- 
+
 <hibernate-configuration>
     <session-factory>
         <!-- Database connection settings -->
@@ -34,8 +34,14 @@
         
         <!-- Quelques autres options: validate, create (effacer et recréer le schéma à chaque exécution), update (mettre à jour le schéma si nécessaire) -->
         <property name="hbm2ddl.auto">create</property>
- 
- 		<mapping class="TP3.Client"/>
-		
+
+        <mapping class="TP3.Article"/>
+        <mapping class="TP3.Client"/>
+        <mapping class="TP3.Commande"/>
+        <mapping class="TP3.Detaillivraison"/>
+        <mapping class="TP3.Facture"/>
+        <mapping class="TP3.Lignecommande"/>
+        <mapping class="TP3.Livraison"/>
+
     </session-factory>
 </hibernate-configuration>

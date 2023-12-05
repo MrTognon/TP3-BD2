@@ -2,14 +2,17 @@ package TP3;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "commande")
 public class Commande {
   @Id
+  @GeneratedValue
   private Integer idCommande;
   
   @Column
   private String date;
   
-  @Id
+  @Column
   private Integer idClient;
   
   public Commande() {}

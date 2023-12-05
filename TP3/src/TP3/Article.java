@@ -2,6 +2,9 @@ package TP3;
 
 import javax.persistence.*;
 
+
+@Entity
+@Table(name = "article")
 public class Article {
   @Id
   @GeneratedValue

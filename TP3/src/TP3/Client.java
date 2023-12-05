@@ -2,6 +2,8 @@ package TP3;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "client")
 public class Client {
   @Id
   @GeneratedValue

@@ -2,12 +2,14 @@ package TP3;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "facture")
 public class Facture {
 	@Id
 	@GeneratedValue
 	private Integer idFacture;
 	
-	@Id
+	@Column
 	private Integer idClient;
 	
 	@Column

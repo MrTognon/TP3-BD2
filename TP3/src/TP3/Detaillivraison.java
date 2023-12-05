@@ -1,51 +1,22 @@
 package TP3;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-public class Detaillivraison {
+@Entity
+@Table(name = "detaillivraison")
+public class Detaillivraison implements Serializable{
 	@Id
-	private Integer idLivraison;
-	
-	@Id
-	private Integer idArticle;
-	
-	@Id
-	private Integer idCommande;
+	private DetailLivraisonId detailLivraisonId;
 	
 	@Column
 	private Integer quantite_livree;
 
 	public Detaillivraison() {}
 
-	public Detaillivraison(Integer idLivraison, Integer idArticle, Integer idCommande, Integer quantite_livree) {
-		this.idLivraison = idLivraison;
-		this.idArticle = idArticle;
-		this.idCommande = idCommande;
+	public Detaillivraison(DetailLivraisonId detailLivraisonId, Integer quantite_livree) {
+		this.detailLivraisonId = detailLivraisonId;
 		this.quantite_livree = quantite_livree;
-	}
-
-	public Integer getIdLivraison() {
-		return idLivraison;
-	}
-
-	public void setIdLivraison(Integer idLivraison) {
-		this.idLivraison = idLivraison;
-	}
-
-	public Integer getIdArticle() {
-		return idArticle;
-	}
-
-	public void setIdArticle(Integer idArticle) {
-		this.idArticle = idArticle;
-	}
-
-	public Integer getIdCommande() {
-		return idCommande;
-	}
-
-	public void setIdCommande(Integer idCommande) {
-		this.idCommande = idCommande;
 	}
 
 	public Integer getQuantite_livree() {
