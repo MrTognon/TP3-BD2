@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class Main {
   public static void main(String[] args) {
@@ -10,9 +11,34 @@ public class Main {
 		System.out.println("******* Lecture *******");
 		List<Client> clients = list();
 		System.out.println("******* Total clients: " + clients.size());
+
+    Article article = new Article();
+    article.setNumSerie("SN-ab123456");
+    article.setDescription("Description");
+    article.setQuantite_disponible(10);
+    article.setPrix_unitaire(100);
+    addArticle(article);
   }
 
-    private static List<Client> list() {
+  private static void addArticle(Article article) {
+    SessionFactory sf = HibernateUtil.getSessionFactory();
+    Session session = sf.openSession();
+    Transaction tx = null;
+
+    try {
+        tx = session.beginTransaction();
+        session.save(article);
+        tx.commit();
+        System.out.println("Article ajouté avec succès");
+    } catch (Exception ex) {
+        if (tx != null) tx.rollback();
+        System.err.println("Erreur lors de l'ajout de l'article: " + ex);
+    } finally {
+        session.close();
+    }
+}
+
+  private static List<Client> list() {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
     try {

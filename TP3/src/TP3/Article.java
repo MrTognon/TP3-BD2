@@ -2,6 +2,8 @@ package TP3;
 
 import javax.persistence.*;
 
+import TP3.validation.NumSerieValide;
+
 
 @Entity
 @Table(name = "article")
@@ -9,6 +11,10 @@ public class Article {
   @Id
   @GeneratedValue
   private Integer idArticle;
+
+  @NumSerieValide
+  @Column
+  private String numSerie;
 
   @Column
   private String description;
@@ -21,7 +27,8 @@ public class Article {
 
   public Article() {}
 
-  public Article(String description, Integer quantite_disponible, Integer prix_unitaire) {
+  public Article(String numSerie, String description, Integer quantite_disponible, Integer prix_unitaire) {
+    this.numSerie = numSerie;
     this.description = description;
     this.quantite_disponible = quantite_disponible;
     this.prix_unitaire = prix_unitaire;
@@ -33,6 +40,14 @@ public class Article {
 
   public void setIdArticle(Integer idArticle) {
     this.idArticle = idArticle;
+  }
+
+  public String getNumSerie() {
+    return numSerie;
+  }
+
+  public void setNumSerie(String numSerie) {
+    this.numSerie = numSerie;
   }
 
   public String getDescription() {
