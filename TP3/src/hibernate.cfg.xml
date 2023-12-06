@@ -33,9 +33,9 @@
         <property name="show_sql">true</property>
         
         <!-- Quelques autres options: validate, create (effacer et recréer le schéma à chaque exécution), update (mettre à jour le schéma si nécessaire) -->
-        <!-- <property name="hbm2ddl.auto">create</property> -->
-        <property name="javax.persistence.ValidationMode">auto</property>
+        <property name="hbm2ddl.auto">update</property>
         <property name="jakarta.persistence.validation.mode">auto</property>
+        
 
         <mapping class="TP3.Article"/>
         <mapping class="TP3.Client"/>

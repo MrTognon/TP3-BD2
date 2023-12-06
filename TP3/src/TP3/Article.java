@@ -1,19 +1,21 @@
 package TP3;
 
 import javax.persistence.*;
+import TP3.validation.NumSerieValide;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+
 @Entity
 @Table(name = "article")
-public class Article {
+public class Article {	
   @Id
   @GeneratedValue
   private Integer idArticle;
 
   @Column
-  @Pattern(regexp = "SN-[a-z]{3}[0-9]{6}", message = "Numéro de série invalide")
   @NotNull
+  @Pattern(regexp = "SN-[a-z]{3}[0-9]{6}", message = "Le numéro de série est invalide")
   private String numSerie;
 
   @Column

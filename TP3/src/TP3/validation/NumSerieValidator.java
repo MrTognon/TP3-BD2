@@ -7,6 +7,7 @@ public class NumSerieValidator implements ConstraintValidator<NumSerieValide, St
 
     @Override
     public void initialize(NumSerieValide constraintAnnotation) {
+        // Initialisation si nécessaire
     }
 
     @Override
@@ -14,7 +15,6 @@ public class NumSerieValidator implements ConstraintValidator<NumSerieValide, St
         if (numSerie == null) {
             return false;
         }
-
         return numSerie.matches("SN-[a-z]{3}[0-9]{6}");
     }
 }
