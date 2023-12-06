@@ -14,8 +14,8 @@ public class Article {
   private Integer idArticle;
 
   @Column
-  @NotNull
-  @Pattern(regexp = "SN-[a-z]{3}[0-9]{6}", message = "Le numéro de série est invalide")
+  @NotNull // Le numéro de série ne peut pas être null
+  @Pattern(regexp = "SN-[a-z]{3}[0-9]{6}", message = "Le numéro de série est invalide") // Le numéro de série doit respecter le format SN-XXX000000
   private String numSerie;
 
   @Column

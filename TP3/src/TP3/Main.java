@@ -1,5 +1,5 @@
 package TP3;
-import java.util.List;
+
 import java.util.Set;
 
 import jakarta.validation.ConstraintViolation;
@@ -12,74 +12,49 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 public class Main {
-	private static Validator validator;
-	
-    public static void setUpValidator() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+    private static Validator validator; // Validateur de contraintes de Bean Validation
+
+    public static void setUpValidator() { // Initialisation du validateur
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory(); // Création du validateur
+        validator = factory.getValidator(); // Récupération du validateur
     }
-	
-  public static void main(String[] args) {
-    // Lire les enregistrements existants  
-    //System.out.println("******* Lecture *******");
-    //List<Client> clients = list();
-    //System.out.println("******* Total clients: " + clients.size());
-	  
-	  setUpValidator();
 
-    Article article = new Article();
-    article.setNumSerie("SN-abc123456");
-    article.setDescription("Description");
-    article.setQuantite_disponible(10);
-    article.setPrix_unitaire(100);
-    
-    Set<ConstraintViolation<Article>> constraintViolations =
-            validator.validate(article);
+    public static void main(String[] args) {
+        setUpValidator(); // Initialisation du validateur
 
-    if (constraintViolations.isEmpty()) {
-        addArticle(article);
-    } else {
-        // Gérez ou imprimez les violations de contrainte ici
-        constraintViolations.forEach(violation -> System.out.println(violation.getMessage()));
+        Article article = new Article(); // Création d'un nouvel article
+        article.setNumSerie("SN-abc123456"); // Numéro de série valide
+        article.setDescription("Description");
+        article.setQuantite_disponible(10);
+        article.setPrix_unitaire(100);
+
+        // Validation de l'article
+        Set<ConstraintViolation<Article>> constraintViolations = validator.validate(article);
+
+        if (constraintViolations.isEmpty()) { // Si aucune violation de contrainte n'est détectée
+            addArticle(article); // Ajout de l'article
+        } else { // Sinon, on affiche les erreurs
+            constraintViolations.forEach(violation -> System.out.println(violation.getMessage()));
+        }
     }
-  }
 
-  private static void addArticle(Article article) {
-    SessionFactory sf = HibernateUtil.getSessionFactory();
-    Session session = sf.openSession();
-    Transaction tx = null;
+    // Ajout d'un article dans la base de données
+    private static void addArticle(Article article) { 
+        SessionFactory sf = HibernateUtil.getSessionFactory(); // Récupération de la session Hibernate
+        Session session = sf.openSession(); // Ouverture d'une session Hibernate
+        Transaction tx = null; // Déclaration de la transaction
 
-    try {
-        tx = session.beginTransaction();
-        session.save(article); // La validation se produit ici
-        tx.commit();
-        System.out.println("Article ajouté avec succès");
-    } catch (Exception ex) {
-        // Gestion des autres exceptions
-        if (tx != null) tx.rollback();
-        System.err.println("Erreur lors de l'ajout de l'article: " + ex);
-    } finally {
-        session.close();
+        try { // Ajout de l'article
+            tx = session.beginTransaction();
+            session.save(article);
+            tx.commit();
+            System.out.println("Article ajouté avec succès");
+        } catch (Exception ex) { // En cas d'erreur, on affiche l'erreur et on annule la transaction
+            if (tx != null)
+                tx.rollback();
+            System.err.println("Erreur lors de l'ajout de l'article: " + ex);
+        } finally { // Fermeture de la session
+            session.close();
+        }
     }
-  }
-
-  private static List<Client> list() {
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-	    try {
-	      System.out.println("Before list");
-	      
-	      List<Client> clients = session.createQuery("from Client", Client.class).getResultList();
-	      
-	      System.out.println("After list");
-	      
-	      session.close();
-	      return clients;
-	      
-	    } catch (Exception ex) {
-	        session.close();
-	        System.err.println("Initial SessionFactory creation failed." + ex);
-	        return null; //(List<Client>) new HashSet<Client>();
-	    }
-	}
 }
